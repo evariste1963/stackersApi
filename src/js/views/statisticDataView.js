@@ -9,7 +9,7 @@ class StatisticDataView extends View {
     return !result.date
       ? `
     <H1 ><span>Spot details</span><br></H1>
-       <div id= statBox>
+    <br><div id= statBox>
     <div id=openPrice >Day Open:<span>${parseFloat(result.open_price).toFixed(
       2
     )}</span></div>
