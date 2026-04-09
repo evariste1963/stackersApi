@@ -1,5 +1,6 @@
-import { TIMEOUT_SEC } from './config';
-import forex from '../img/forex.webp';
+import { TIMEOUT_SEC } from './config.js';
+
+const FOREX_IMG = '/src/img/forex.webp';
 
 //re-useable timeout function
 const timeout = function (s) {
@@ -39,7 +40,7 @@ export let devData = {
   symbol: 'FOREXCOM:XAUGBP',
 };
 
-devData.forex = forex; //add forex key to object and set to img path
+devData.forex = FOREX_IMG;
 devData.timestamp = Date.now() / 1000;
 console.log(devData);
 
@@ -53,21 +54,23 @@ export let devAccount = {
 /////////////////////////////////////////////////////////// DELETE DEVdATA BLOCK//////////////
 
 export const AJAX = async function (url, requestOptions) {
+  console.log('AJAX called with url:', url);
   try {
     const fetchPro = fetch(url, requestOptions);
     const response = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);
+    console.log('AJAX response status:', response.status);
     const result = await response.json();
     if (!response.ok) throw new Error(`ooops, something went wrong!!`);
-    //console.log(result);
     result.metal === 'XAU'
       ? (result.metalTxt = 'Gold')
       : result.metal === 'XAG'
       ? (result.metalTxt = 'Silver')
       : '';
-    result.forex = forex; // add forex key to object and set to img path
+    result.forex = FOREX_IMG;
     return result;
   } catch (err) {
-    throw err; //throw errror back
+    console.error('AJAX error:', err);
+    throw err;
   }
 };
 

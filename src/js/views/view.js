@@ -1,5 +1,5 @@
-import icons from 'url:../../img/icons.svg';
-import spinner from '../../img/Spinner-1s-200px.svg';
+const ICONS_PATH = '/src/img/icons.svg';
+
 export default class View {
   _clear() {
     this._parentElement.innerHTML = ''; //clear out HTML container
@@ -9,10 +9,6 @@ export default class View {
     const markup = `
                 <div class="spinner">
                 <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-                <!-- <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div> -->
-                  <!-- ><svg>
-                    <use href="${spinner} ></use>
-                  </svg> -->
                   <p> ${this._message}</p>
                 </div>
         `;
@@ -30,7 +26,7 @@ export default class View {
   <div class="error">
             <div class = 'svgBox'>
               <svg>
-                <use href="${icons}#icon-alert-triangle"></use>
+                <use href="${ICONS_PATH}#icon-alert-triangle"></use>
               </svg>
             </div>
             <p>${message}</p>
@@ -45,7 +41,7 @@ export default class View {
   <div class="message">
             <div>
               <svg>
-                <use href="${icons}#icon-smile"></use>
+                <use href="${ICONS_PATH}#icon-smile"></use>
               </svg>
             </div>
             <p>${message}</p>

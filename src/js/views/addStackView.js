@@ -1,4 +1,4 @@
-import View from './view';
+import View from './view.js';
 
 const modalWindow = document.querySelector('.add-stack-window');
 const overlay = document.querySelector('.overlay');

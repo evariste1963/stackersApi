@@ -1,6 +1,6 @@
-import View from './view';
+import View from './view.js';
 import { getTimestamp } from '../helpers.js';
-import statisticDataView from './statisticDataView';
+import statisticDataView from './statisticDataView.js';
 
 class SpotDataView extends View {
   _parentElement = document.querySelector('.spotTicker');

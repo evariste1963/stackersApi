@@ -1,6 +1,7 @@
 import { API_KEY, API_URL, metal, currency, historicDate } from './config.js';
 import { AJAX } from './helpers.js';
-import forex from '../img/forex.webp';
+
+const FOREX_IMG = '/src/img/forex.webp';
 
 const myHeaders = new Headers();
 myHeaders.append('x-access-token', API_KEY);
@@ -13,21 +14,13 @@ const requestOptions = {
 };
 
 export const getMetalPrice = async () => {
-  try {
-    const result = await AJAX(
-      `${API_URL}/${metal}/${currency}/${historicDate}?`,
-      requestOptions
-    );
-    result.metal === 'XAU'
-      ? (result.metalTxt = 'Gold')
-      : result.metal === 'XAG'
-      ? (result.metalTxt = 'Silver')
-      : '';
-    result.forex = forex; // add forex key to object and set to img path
-    return result;
-  } catch (error) {
-    console.log('error', error);
+  const url = `${API_URL}/${metal}/${currency}${historicDate ? '/' + historicDate : ''}`;
+  const result = await AJAX(url, requestOptions);
+  if (result) {
+    result.metalTxt = result.metal === 'XAU' ? 'Gold' : result.metal === 'XAG' ? 'Silver' : '';
+    result.forex = FOREX_IMG;
   }
+  return result;
 };
 
 export const getAccountUpdate = async () => {

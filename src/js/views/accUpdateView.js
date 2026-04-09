@@ -1,5 +1,5 @@
-import { requestLimit } from '../config';
-import View from './view';
+import { requestLimit } from '../config.js';
+import View from './view.js';
 
 class AccountUpdateView extends View {
   _parentElement = document.querySelector('#accStatus');
