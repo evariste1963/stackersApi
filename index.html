@@ -42,6 +42,7 @@
             />
             <p id="logotext">stackers</p>
             <div class="btnDiv">
+              <div id="authNav" class="auth-nav"></div>
               <button class="btn-update">GET LATEST PRICE</button>
               <button class="btn-stack modal">Add to Stack</button>
             </div>
@@ -61,9 +62,9 @@
       </div>
       <div class="overlay hidden">
         <div class="add-stack-window hidden">
-          <button class="btn--close-modal modal">&times;</button>
+          <button type="button" class="btn--close-modal modal">&times;</button>
           <h3 class="upload__heading">Stack something precious</h3>
-          <form class="upload">
+          <form class="upload" onsubmit="return false;">
             <div class="upload__column">
               <label>Code</label>
               <input value="XUA" required name="code" type="text" />
@@ -83,7 +84,7 @@
               <label>Spare2</label>
               <input value="23" required name="spare2" type="number" />
             </div>
-            <button class="btn upload__btn modal">
+            <button type="button" class="btn upload__btn modal">
               <img
                 src="./src/img/pngegg.png"
                 alt="logo"

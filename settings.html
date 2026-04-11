@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/src/css/main.css">
+  <link rel="stylesheet" href="/src/css/page.css">
+  <title>Settings - Stackers API</title>
+</head>
+<body>
+  <div class="settings-container">
+    <div class="settings-box">
+      <img src="./src/img/pngegg.png" alt="logo" class="settings-logo">
+      <h1>User Settings</h1>
+      
+      <div id="profileSection" class="settings-section">
+        <h2>Profile</h2>
+        <div id="profileInfo" class="profile-info"></div>
+      </div>
+      
+      <div class="settings-section">
+        <h2>GoldAPI Configuration</h2>
+        <p class="help-text">Enter your own GoldAPI key to track your usage separately, or use the admin key.</p>
+        <form id="goldApiForm" class="settings-form">
+          <div class="form-group">
+            <label for="goldapiKey">GoldAPI Key</label>
+            <input type="password" id="goldapiKey" name="goldapiKey" placeholder="goldapi-xxxxx">
+          </div>
+          <button type="submit" id="saveBtn" class="btn-submit" disabled>Save Settings</button>
+          <div id="settingsMsg" class="success-msg hidden"></div>
+        </form>
+      </div>
+      
+      <div class="settings-actions">
+        <button id="logoutBtn" class="btn-logout">Logout</button>
+        <button id="cancelBtn" class="btn-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <script type="module">
+    import { logout, getProfile, getToken, authHeader } from '/src/js/auth.js';
+    
+    if (!getToken()) {
+      window.location.href = '/login.html';
+    }
+    
+    const goldapiKeyInput = document.getElementById('goldapiKey');
+    const saveBtn = document.getElementById('saveBtn');
+    
+    goldapiKeyInput.addEventListener('input', () => {
+      saveBtn.disabled = goldapiKeyInput.value.trim() === '';
+    });
+    
+    async function loadProfile() {
+      try {
+        const response = await fetch('/api/user/profile', {
+          headers: authHeader()
+        });
+        
+        if (response.status === 401) {
+          logout();
+          window.location.href = '/login.html';
+          return;
+        }
+        
+        const user = await response.json();
+        document.getElementById('profileInfo').innerHTML = `
+          <p><strong>Username:</strong> ${user.username}</p>
+          <p><strong>Email:</strong> ${user.email}</p>
+          <p><strong>Admin:</strong> ${user.isAdmin ? 'Yes' : 'No'}</p>
+          <p><strong>GoldAPI Key:</strong> ${user.hasGoldApiKey ? 'Configured' : 'Using admin key'}</p>
+          <p><strong>Member since:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
+        `;
+      } catch (err) {
+        console.error('Failed to load profile:', err);
+      }
+    }
+    
+    document.getElementById('goldApiForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msgDiv = document.getElementById('settingsMsg');
+      msgDiv.classList.add('hidden');
+      
+      const goldapiKey = document.getElementById('goldapiKey').value;
+      
+      try {
+        const response = await fetch('/api/user/settings', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...authHeader()
+          },
+          body: JSON.stringify({ goldapiKey })
+        });
+        
+        if (response.ok) {
+          msgDiv.textContent = 'Settings saved successfully!';
+          msgDiv.classList.remove('hidden');
+          document.getElementById('goldapiKey').value = '';
+          saveBtn.disabled = true;
+        } else {
+          msgDiv.textContent = 'Failed to save settings';
+          msgDiv.classList.remove('hidden');
+        }
+      } catch (err) {
+        msgDiv.textContent = 'Error saving settings';
+        msgDiv.classList.remove('hidden');
+      }
+    });
+    
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await logout();
+      window.location.href = '/login.html';
+    });
+    
+    document.getElementById('cancelBtn').addEventListener('click', () => {
+      window.location.href = '/';
+    });
+    
+    loadProfile();
+  </script>
+</body>
+</html>

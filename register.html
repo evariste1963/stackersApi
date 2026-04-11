@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/src/css/main.css">
+  <link rel="stylesheet" href="/src/css/page.css">
+  <title>Register - Stackers API</title>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-box">
+      <img src="./src/img/pngegg.png" alt="logo" class="auth-logo">
+      <h1>Create Account</h1>
+      <form id="registerForm" class="auth-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required minlength="3" autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required minlength="6" autocomplete="new-password">
+        </div>
+        <button type="submit" class="btn-submit">Register</button>
+        <div id="error" class="error-msg hidden"></div>
+      </form>
+      <p class="auth-link">Already have an account? <a href="/login.html">Login here</a></p>
+      <p class="auth-link"><a href="/">Back to Home</a></p>
+    </div>
+  </div>
+  <script type="module">
+    import { register, isAuthenticated } from '/src/js/auth.js';
+    
+    if (isAuthenticated()) {
+      window.location.href = '/';
+    }
+    
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errorDiv = document.getElementById('error');
+      errorDiv.classList.add('hidden');
+      
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      try {
+        await register(username, email, password);
+        window.location.href = '/login.html';
+      } catch (err) {
+        errorDiv.textContent = err.message;
+        errorDiv.classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

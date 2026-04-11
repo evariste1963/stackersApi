@@ -1,5 +1,10 @@
 import { serve } from 'bun';
-import { watch } from 'fs';
+import { config } from 'dotenv';
+
+config();
+
+import { registerRoutes } from './src/server/authRoutes.js';
+import { apiRoutes } from './src/server/apiRoutes.js';
 
 const mimeTypes = {
   '.js': 'application/javascript',
@@ -17,11 +22,26 @@ function getMimeType(path) {
   return mimeTypes[ext] || 'text/plain';
 }
 
-const server = serve({
-  port: 3000,
+const routes = [];
+
+function addRoute(method, path, handler) {
+  routes.push({ method, path, handler });
+}
+
+registerRoutes({ post: (path, handler) => addRoute('POST', path, handler) });
+apiRoutes({ get: (path, handler) => addRoute('GET', path, handler), post: (path, handler) => addRoute('POST', path, handler) });
+
+serve({
+  port: process.env.PORT || 3000,
   async fetch(request) {
-    let url = new URL(request.url);
+    const url = new URL(request.url);
     let path = url.pathname;
+    const method = request.method;
+
+    const matchedRoute = routes.find(r => r.method === method && r.path === path);
+    if (matchedRoute) {
+      return matchedRoute.handler(request);
+    }
 
     if (path === '/') path = '/index.html';
 
@@ -38,6 +58,9 @@ const server = serve({
         headers: { 
           'Content-Type': getMimeType(path),
           'Access-Control-Allow-Origin': '*',
+          'X-Content-Type-Options': 'nosniff',
+          'X-Frame-Options': 'DENY',
+          'X-XSS-Protection': '1; mode=block',
         }
       });
     }
@@ -46,4 +69,5 @@ const server = serve({
   },
 });
 
-console.log(`Server running at http://localhost:3000`);
+console.log(`Server running at http://localhost:${process.env.PORT || 3000}`);
+console.log('API Proxy & Auth system ready');
