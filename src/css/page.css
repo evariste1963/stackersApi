@@ -591,6 +591,14 @@ footer {
   margin-right: 2rem;
 }
 
+.auth-dropdown {
+  display: none;
+}
+
+.auth-dropdown.visible {
+  display: inline-block;
+}
+
 .auth-link,
 .auth-btn {
   padding: 0.5rem 1rem;
@@ -664,7 +672,7 @@ footer {
 .dropdown-content {
   display: none;
   position: absolute;
-  
+ right:0; 
   top: 100%;
   padding-top: 0.5rem;
   background-color: #d1cccc;

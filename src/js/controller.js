@@ -42,11 +42,11 @@ function setCachedAccount(data) {
 }
 
 function renderAuthNav() {
-    const dropdown = document.getElementById('accountDropdown');
+    const dropdown = document.querySelector('.auth-dropdown');
     const dropdownContent = dropdown?.nextElementSibling;
     
     if (isAuthenticated()) {
-      dropdown.style.display = 'inline-block';
+      dropdown.classList.add('visible');
       authNav.innerHTML = '';
       
       document.getElementById('logoutLink').addEventListener('click', async (e) => {
@@ -70,7 +70,6 @@ function renderAuthNav() {
         }
       });
     } else {
-      dropdown.style.display = 'none';
       authNav.innerHTML = `
         <a href="/login.html" class="auth-link">Login</a>
         <a href="/register.html" class="auth-link">Register</a>
