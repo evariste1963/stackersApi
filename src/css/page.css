@@ -19,8 +19,6 @@
 * {
   padding: 0;
   margin: 0 auto;
-  padding: 0;
-
   box-sizing: border-box;
 }
 
@@ -104,7 +102,8 @@ body {
 }
 
 .btn-update::before,
-.btn-stack::before {
+.btn-stack::before,
+.dropbtn::before{
   border-radius: 0.7rem;
   content: ' ';
   display: block;
@@ -122,13 +121,15 @@ body {
 }
 
 .btn-update:hover::before,
-.btn-stack:hover::before {
+.btn-stack:hover::before,
+.dropbtn:hover::before{
   transform: scaleX(1);
   transform-origin: bottom left;
 }
 
 .btn-update,
-.btn-stack {
+.btn-stack,
+.dropbtn{
   position: relative;
   border-top: solid 2px #fff;
   border-bottom: solid 2px #fff;
@@ -148,7 +149,8 @@ body {
 }
 
 .btn-update:hover,
-.btn-stack:hover {
+.btn-stack:hover,
+.dropbtn:hover{
   font-weight: 800;
   color: rgba(7, 7, 128, 0.8);
   z-index: 1;
@@ -172,7 +174,7 @@ body {
 .spotTicker {
   display: flex;
   width: 100%;
-  z-index: 999;
+  /*z-index: 999;*/
   padding: 0.5rem;
   align-items: center;
   justify-content: center;
@@ -568,7 +570,7 @@ footer {
   background: var(--price-drop-color);
   color: #fff;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 5.5rem;
   font-size: 1rem;
   cursor: pointer;
 }
@@ -617,4 +619,75 @@ footer {
 
 .auth-btn:hover {
   background: #b30f0f;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin: auto 0 auto 1rem;
+  vertical-align: middle;
+}
+/*
+.dropbtn {
+  position: relative;
+  border-top: solid 2px #fff;
+  border-bottom: solid 2px #fff;
+  border-left: none;
+  border-right: none;
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 1rem 1rem;
+  border-radius: 0.7rem;
+  color: #fff;
+  background-color: transparent;
+  cursor: pointer;
+  font-family: Ink free, cursive, sans-serif;
+  transition: color 1s ease;
+  height: auto;
+  min-height: unset;
+  margin: auto;
+}
+*/
+.dropbtn:hover {
+  font-weight: 800;
+  color: rgba(7, 7, 128, 0.8);
+  border-radius: 0.7rem;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  padding-top: 0.5rem;
+  background-color: #d1cccc;
+  min-width: 140px;
+  border: 2px solid rgba(5, 5, 93, 0.8);
+  border-radius: 0.7rem;
+  z-index: 99999;
+  overflow: hidden;
+}
+
+.dropdown-content a {
+  color: rgb(4, 3, 19);
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  display: block;
+  font-size: 1.25rem;
+  margin: 0;
+  border-radius: 0;
+  text-align: left;       /* override inherited center alignment */
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dropdown-content a:hover {
+  background-color: rgba(7, 7, 128, 0.2);
+  color: #fff;
+}
+
+.dropdown.show .dropdown-content {
+  display: block;
 }

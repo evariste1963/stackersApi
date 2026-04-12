@@ -32,26 +32,44 @@ function setCachedAccount(data) {
 }
 
 function renderAuthNav() {
-  if (isAuthenticated()) {
-    authNav.innerHTML = `
-      <a href="/settings.html" class="auth-link">Settings</a>
-      <button id="logoutBtn" class="auth-btn">Logout</button>
-    `;
-    document.getElementById('logoutBtn').addEventListener('click', async () => {
-      await logout();
-      window.location.reload();
-    });
-  } else {
-    authNav.innerHTML = `
-      <a href="/login.html" class="auth-link">Login</a>
-      <a href="/register.html" class="auth-link">Register</a>
-    `;
+    const dropdown = document.getElementById('accountDropdown');
+    
+    if (isAuthenticated()) {
+      // Show dropdown, hide authNav links
+      dropdown.style.display = 'inline-block';
+      authNav.innerHTML = '';
+      
+      // Add click handler for logout
+      document.getElementById('logoutLink').addEventListener('click', async (e) => {
+        e.preventDefault();
+        await logout();
+        window.location.href = '/login.html';
+      });
+      
+      // Add toggle handler for dropdown
+      dropdown.querySelector('.dropbtn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle('show');
+      });
+      
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) {
+          dropdown.classList.remove('show');
+        }
+      });
+    } else {
+      // Show login/register in authNav, hide dropdown
+      dropdown.style.display = 'none';
+      authNav.innerHTML = `
+        <a href="/login.html" class="auth-link">Login</a>
+        <a href="/register.html" class="auth-link">Register</a>
+      `;
+    }
   }
-}
 
 const init = async function () {
   renderAuthNav();
-  
   if (!isAuthenticated()) {
     spotDataView.renderError('Please login to view prices');
     return;
@@ -96,6 +114,7 @@ function displayCachedData(metalData, accountData) {
 }
 
 async function controlGetMetalPrice() {
+
   try {
     [spotDataView, statisticDataView].forEach(fn => fn.renderSpinner());
     const metalData = await model.getMetalPrice();
