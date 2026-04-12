@@ -15,7 +15,12 @@ const ACCOUNT_CACHE_KEY = 'stackers_account_cache';
 
 function getCachedMetal() {
   const cached = sessionStorage.getItem(METAL_CACHE_KEY);
-  return cached ? JSON.parse(cached) : null;
+  if (!cached || cached === 'undefined') return null;
+  try {
+    return JSON.parse(cached);
+  } catch {
+    return null;
+  }
 }
 
 function setCachedMetal(data) {
@@ -24,7 +29,12 @@ function setCachedMetal(data) {
 
 function getCachedAccount() {
   const cached = sessionStorage.getItem(ACCOUNT_CACHE_KEY);
-  return cached ? JSON.parse(cached) : null;
+  if (!cached || cached === 'undefined') return null;
+  try {
+    return JSON.parse(cached);
+  } catch {
+    return null;
+  }
 }
 
 function setCachedAccount(data) {
@@ -33,33 +43,33 @@ function setCachedAccount(data) {
 
 function renderAuthNav() {
     const dropdown = document.getElementById('accountDropdown');
+    const dropdownContent = dropdown?.nextElementSibling;
     
     if (isAuthenticated()) {
-      // Show dropdown, hide authNav links
       dropdown.style.display = 'inline-block';
       authNav.innerHTML = '';
       
-      // Add click handler for logout
       document.getElementById('logoutLink').addEventListener('click', async (e) => {
         e.preventDefault();
         await logout();
         window.location.href = '/login.html';
       });
       
-      // Add toggle handler for dropdown
-      dropdown.querySelector('.dropbtn').addEventListener('click', (e) => {
+      dropdown.addEventListener('click', (e) => {
         e.stopPropagation();
-        dropdown.classList.toggle('show');
+        if (dropdownContent) {
+          const isShown = dropdownContent.style.display === 'block';
+          dropdownContent.style.display = isShown ? 'none' : 'block';
+        }
       });
       
-      // Close dropdown when clicking outside
       document.addEventListener('click', (e) => {
-        if (!dropdown.contains(e.target)) {
-          dropdown.classList.remove('show');
+        if (dropdownContent && dropdownContent.style.display === 'block' && 
+            !dropdown.contains(e.target) && !dropdownContent.contains(e.target)) {
+          dropdownContent.style.display = 'none';
         }
       });
     } else {
-      // Show login/register in authNav, hide dropdown
       dropdown.style.display = 'none';
       authNav.innerHTML = `
         <a href="/login.html" class="auth-link">Login</a>
