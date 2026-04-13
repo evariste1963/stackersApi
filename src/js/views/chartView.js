@@ -1,8 +1,6 @@
 import { metal } from '../config.js';
-import { priceData } from '../priceData.js';
 
 const ApexCharts = window.ApexCharts || window.Apex;
-const STORAGE_KEY = 'stackers_chart_data';
 const MAX_DAYS = 90;
 
 let chart = null;
@@ -11,35 +9,30 @@ function getTodayDateString() {
   return new Date().toISOString().split('T')[0];
 }
 
-function loadChartData() {
-  // Always start fresh - clear bad localStorage data
-  localStorage.removeItem(STORAGE_KEY);
-  
-  // Use only priceData.js
-  const data = Object.entries(priceData).map(([date, price]) => {
-    const ts = new Date(date).getTime();
-    return [ts, price];
-  });
-  
-  data.sort((a, b) => a[0] - b[0]);
-  
-  const cutoff = Date.now() - (MAX_DAYS * 24 * 60 * 60 * 1000);
-  return data.filter(([ts]) => ts >= cutoff);
+async function loadChartData() {
+  try {
+    const response = await fetch('/api/prices?metal=' + metal);
+    const prices = await response.json();
+    
+    const data = prices.map(p => {
+      const ts = new Date(p.date).getTime();
+      return [ts, p.price];
+    });
+    
+    data.sort((a, b) => a[0] - b[0]);
+    
+    const cutoff = Date.now() - (MAX_DAYS * 24 * 60 * 60 * 1000);
+    return data.filter(([ts]) => ts >= cutoff);
+  } catch (err) {
+    console.error('Failed to load prices:', err);
+    return [];
+  }
 }
 
-function saveChartData(data) {
-  const obj = {};
-  data.forEach(([ts, price]) => {
-    const date = new Date(ts).toISOString().split('T')[0];
-    obj[date] = price;
-  });
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
-}
-
-export function updateChartPrice(timestamp, price) {
+export async function updateChartPrice(timestamp, price) {
   const date = new Date(timestamp * 1000).toISOString().split('T')[0];
   
-  let data = loadChartData();
+  let data = await loadChartData();
   
   data = data.filter(([ts]) => {
     const d = new Date(ts).toISOString().split('T')[0];
@@ -54,8 +47,6 @@ export function updateChartPrice(timestamp, price) {
   const cutoff = Date.now() - (MAX_DAYS * 24 * 60 * 60 * 1000);
   data = data.filter(([t]) => t >= cutoff);
   
-  saveChartData(data);
-  
   if (chart) {
     chart.updateSeries([{ name: metal, data: data }]);
   }
@@ -63,7 +54,7 @@ export function updateChartPrice(timestamp, price) {
 
 export async function chartIt() {
   try {
-    const data = loadChartData();
+    const data = await loadChartData();
     
     const options = {
       series: [{ name: metal, data: data }],

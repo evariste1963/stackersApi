@@ -1,8 +1,26 @@
 import { authMiddleware, adminMiddleware } from './middleware.js';
 import { fetchMetalPrice, fetchAccountStats } from './goldapi.js';
-import { getUserById, logApiUsage, getAllUsers, updateUserAdminStatus } from './database.js';
+import { getUserById, logApiUsage, getAllUsers, updateUserAdminStatus, getPricesByMetal, savePrice } from './database.js';
 
 export function apiRoutes(server) {
+  server.get('/api/prices', async (request) => {
+    try {
+      const url = new URL(request.url);
+      const metal = url.searchParams.get('metal') || 'XAU';
+      const prices = getPricesByMetal(metal);
+      return new Response(JSON.stringify(prices), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    } catch (error) {
+      console.error('Prices error:', error);
+      return new Response(JSON.stringify({ error: 'Failed to fetch prices' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+  });
+
   server.get('/api/metal-price', async (request) => {
     const auth = authMiddleware(request);
     if (auth.error) {
@@ -21,18 +39,23 @@ export function apiRoutes(server) {
       const user = getUserById(auth.user.userId);
       const apiKey = user?.goldapi_key || null;
       
-      const data = await fetchMetalPrice(metal, currency, date, apiKey);
-      
-      logApiUsage(auth.user.userId, '/api/metal-price', metal, currency);
-      
-      return new Response(JSON.stringify(data), {
-        status: 200,
-        headers: { 
-          'Content-Type': 'application/json',
-          'Cache-Control': 'no-cache'
+const data = await fetchMetalPrice(metal, currency, date, apiKey);
+        
+        logApiUsage(auth.user.userId, '/api/metal-price', metal, currency);
+        
+        if (data.price && data.timestamp) {
+          const date = new Date(data.timestamp * 1000).toISOString().split('T')[0];
+          savePrice(metal, date, data.price);
         }
-      });
-    } catch (error) {
+        
+        return new Response(JSON.stringify(data), {
+          status: 200,
+          headers: { 
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache'
+          }
+        });
+      } catch (error) {
       console.error('Metal price error:', error);
       return new Response(JSON.stringify({ error: error.message }), {
         status: 502,

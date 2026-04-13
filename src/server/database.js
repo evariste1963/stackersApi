@@ -56,4 +56,13 @@ export function updateUserAdminStatus(userId, isAdmin) {
   return stmt.run(isAdmin ? 1 : 0, userId);
 }
 
+export function getPricesByMetal(metal = 'XAU') {
+  return db.prepare('SELECT date, price FROM prices WHERE metal = ? ORDER BY date').all(metal);
+}
+
+export function savePrice(metal, date, price) {
+  const stmt = db.prepare('INSERT OR REPLACE INTO prices (metal, date, price) VALUES (?, ?, ?)');
+  return stmt.run(metal, date, price);
+}
+
 export default db;
