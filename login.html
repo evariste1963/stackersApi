@@ -19,7 +19,10 @@
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" required autocomplete="current-password">
+          <div class="password-wrapper">
+            <input type="password" id="password" name="password" required autocomplete="current-password">
+            <button type="button" class="toggle-password" onclick="document.getElementById('password').type = document.getElementById('password').type === 'password' ? 'text' : 'password'">👁</button>
+          </div>
         </div>
         <button type="submit" class="btn-submit">Login</button>
         <div id="error" class="error-msg hidden"></div>
