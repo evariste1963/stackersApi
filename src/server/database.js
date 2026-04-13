@@ -47,4 +47,13 @@ export function emailExists(email) {
   return !!result;
 }
 
+export function getAllUsers() {
+  return db.prepare('SELECT id, username, email, is_admin, goldapi_key, created_at FROM users ORDER BY id').all();
+}
+
+export function updateUserAdminStatus(userId, isAdmin) {
+  const stmt = db.prepare('UPDATE users SET is_admin = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?');
+  return stmt.run(isAdmin ? 1 : 0, userId);
+}
+
 export default db;

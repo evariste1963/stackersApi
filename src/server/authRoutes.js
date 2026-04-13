@@ -37,12 +37,28 @@ export function registerRoutes(server) {
       const passwordHash = hashPassword(password);
       const userId = createUser(username, email, passwordHash);
       
+      const token = generateToken({
+        userId,
+        username,
+        isAdmin: false
+      });
+      
       return new Response(JSON.stringify({ 
         message: 'User registered successfully',
-        userId 
+        token,
+        user: {
+          id: userId,
+          username,
+          email,
+          isAdmin: false,
+          hasGoldApiKey: false
+        }
       }), {
         status: 201,
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 
+          'Content-Type': 'application/json',
+          'Set-Cookie': `token=${token}; HttpOnly; Path=/; Max-Age=86400; SameSite=Strict`
+        }
       });
     } catch (error) {
       console.error('Registration error:', error);

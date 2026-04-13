@@ -13,6 +13,7 @@ export function verifyPassword(password, hash) {
 }
 
 export function generateToken(payload) {
+  console.log('generateToken JWT_SECRET:', process.env.JWT_SECRET ? 'set' : 'MISSING');
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '24h' });
 }
 

@@ -6,13 +6,19 @@ const FOREX_IMG = '/src/img/forex.webp';
 export const getMetalPrice = async () => {
   const url = `${API_BASE}/metal-price?metal=${metal}&currency=${currency}${historicDate ? '&date=' + historicDate : ''}`;
   
+  const headers = authHeader();
+  console.log('getMetalPrice headers:', headers);
+  console.log('Token in localStorage:', localStorage.getItem('stackers_token'));
+  
   const response = await fetch(url, {
     method: 'GET',
-    headers: authHeader()
+    headers: headers
   });
   
   if (!response.ok) {
-    throw new Error('Failed to fetch metal price');
+    const errorText = await response.text();
+    console.log('getMetalPrice error response:', response.status, errorText);
+    throw new Error(errorText || 'Failed to fetch metal price');
   }
   
   const result = await response.json();

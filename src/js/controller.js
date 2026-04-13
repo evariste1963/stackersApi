@@ -137,7 +137,7 @@ async function controlGetMetalPrice() {
     
     updateChartPrice(metalData.timestamp, metalData.price);
   } catch (err) {
-    console.error('Error:', err);
+    console.error('Error:', err, 'Status:', err.response?.status, 'Data:', err.response?.data);
     [spotDataView, statisticDataView].forEach(fn => fn.renderError('Login required'));
   }
 }

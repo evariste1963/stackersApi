@@ -20,6 +20,7 @@
   padding: 0;
   margin: 0 auto;
   box-sizing: border-box;
+  font-family: var(--font-family);
 }
 
 html,
@@ -458,6 +459,8 @@ footer {
 
 .form-group {
   display: flex;
+  width:80%;
+  font-size: 1rem;
   flex-direction: column;
   text-align: left;
 }
@@ -470,10 +473,12 @@ footer {
 
 .form-group input {
   padding: 0.75rem;
+  width:100%;
   border: 1px solid var(--box-border);
   border-radius: 0.5rem;
   font-size: 1rem;
   font-family: inherit;
+  text-align:center;
   cursor: text;
 }
 
@@ -534,6 +539,63 @@ footer {
   color: var(--price-up-color);
 }
 
+.info-msg,
+.info-msg a {
+  background: rgba(10, 92, 192, 0.2);
+  color: var(--box-font-color);
+}
+
+.info-msg a {
+  padding: 0;
+  text-decoration: underline;
+}
+
+.user-list {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.user-item {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0.8rem;
+  background: rgba(5, 5, 93, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.user-item .user-info {
+  color: #fff;
+  font-weight: 600;
+}
+
+.admin-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.admin-toggle span {
+  color: #f38e82;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.admin-toggle input {
+  width: 1.4rem;
+  height: 1.4rem;
+  cursor: pointer;
+  accent-color: #f38e82;
+}
+
 .settings-section {
   margin: 1.5rem 0;
   text-align: left;
@@ -548,11 +610,12 @@ footer {
 
 .profile-info p {
   margin: 0.5rem 0;
+  font-size: 1rem;
   color: var(--box-font-color);
 }
 
 .help-text {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--box-font-color);
   margin-bottom: 1rem;
 }
@@ -647,7 +710,7 @@ footer {
   color: #fff;
   background-color: transparent;
   cursor: pointer;
-  font-family: Ink free, cursive, sans-serif;
+  font-family: Ink free, cursive, sans-seruf;
   transition: color 1s ease;
   height: auto;
   min-height: unset;
@@ -672,16 +735,18 @@ footer {
 .dropdown-content {
   display: none;
   position: absolute;
- right:0; 
+  right:2rem; 
   top: 100%;
-  padding-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: #e8e6e3;
   background-color: #d1cccc;
- min-width: auto;
-  border: 2px solid rgba(5, 5, 93, 0.8);
+  /* min-width: calc(100% - 4rem);*/
+  border: 2px solid rgba(124, 115, 102, 0.8);
   border-radius: 0.7rem;
   z-index: 99999;
   overflow: hidden;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .dropdown-content a {
@@ -696,6 +761,14 @@ footer {
   display: block;
   width: 100%;
   box-sizing: border-box;
+}
+
+.dropdown-content a:first-of-type {
+  border-bottom: 2px solid rgba(124, 115, 102, 0.8);
+}
+
+.dropdown-content #logoutLink {
+  color: #c00;
 }
 
 .dropdown-content a:hover {

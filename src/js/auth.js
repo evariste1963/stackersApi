@@ -59,6 +59,11 @@ export async function register(username, email, password) {
     throw new Error(data.error || 'Registration failed');
   }
   
+  if (data.token) {
+    setToken(data.token);
+    setUser(data.user);
+  }
+  
   return data;
 }
 

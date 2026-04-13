@@ -1,6 +1,6 @@
 import { authMiddleware, adminMiddleware } from './middleware.js';
 import { fetchMetalPrice, fetchAccountStats } from './goldapi.js';
-import { getUserById, logApiUsage } from './database.js';
+import { getUserById, logApiUsage, getAllUsers, updateUserAdminStatus } from './database.js';
 
 export function apiRoutes(server) {
   server.get('/api/metal-price', async (request) => {
@@ -136,6 +136,67 @@ export function apiRoutes(server) {
     } catch (error) {
       console.error('Settings error:', error);
       return new Response(JSON.stringify({ error: 'Failed to update settings' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+  });
+
+  server.get('/api/admin/users', async (request) => {
+    const auth = adminMiddleware(request);
+    if (auth.error) {
+      return new Response(JSON.stringify({ error: auth.error }), {
+        status: auth.status,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+    
+    try {
+      const users = getAllUsers();
+      console.log('Admin users fetched:', users?.length);
+      return new Response(JSON.stringify({ users }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    } catch (error) {
+      console.error('Admin users error:', error, error.stack);
+      return new Response(JSON.stringify({ error: 'Failed to fetch users: ' + error.message }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+  });
+
+  server.post('/api/admin/user', async (request) => {
+    const auth = adminMiddleware(request);
+    if (auth.error) {
+      return new Response(JSON.stringify({ error: auth.error }), {
+        status: auth.status,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+    
+    try {
+      const url = new URL(request.url);
+      const userId = parseInt(url.searchParams.get('id'));
+      const { isAdmin } = await request.json();
+      
+      if (isNaN(userId)) {
+        return new Response(JSON.stringify({ error: 'Invalid user ID' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+      
+      updateUserAdminStatus(userId, isAdmin ? 1 : 0);
+      
+      return new Response(JSON.stringify({ message: 'User updated' }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    } catch (error) {
+      console.error('Admin update error:', error);
+      return new Response(JSON.stringify({ error: 'Failed to update user' }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' }
       });
