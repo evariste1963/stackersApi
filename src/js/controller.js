@@ -58,15 +58,14 @@ function renderAuthNav() {
       dropdown.addEventListener('click', (e) => {
         e.stopPropagation();
         if (dropdownContent) {
-          const isShown = dropdownContent.style.display === 'block';
-          dropdownContent.style.display = isShown ? 'none' : 'block';
+          dropdownContent.classList.toggle('visible');
         }
       });
       
       document.addEventListener('click', (e) => {
-        if (dropdownContent && dropdownContent.style.display === 'block' && 
+        if (dropdownContent && dropdownContent.classList.contains('visible') && 
             !dropdown.contains(e.target) && !dropdownContent.contains(e.target)) {
-          dropdownContent.style.display = 'none';
+          dropdownContent.classList.remove('visible');
         }
       });
     } else {

@@ -5,7 +5,7 @@ class StatisticDataView extends View {
   _errorMessage = 'No statistics found for your query! Please try again ;)';
   _message = 'fetching data, please wait...';
 
-  _generateStatMarkup(result) {
+_generateStatMarkup(result) {
     return !result.date
       ? `
     <H1 ><span>Spot details</span><br></H1>
@@ -33,7 +33,6 @@ class StatisticDataView extends View {
     <div id=P18K>18 Karat:<span>${(result.price_gram_18k * 31.1034768).toFixed(
       2
     )}</span></div>
-   
     
     
     </div>
