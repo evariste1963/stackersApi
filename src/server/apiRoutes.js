@@ -1,6 +1,6 @@
 import { authMiddleware, adminMiddleware } from './middleware.js';
 import { fetchMetalPrice, fetchAccountStats } from './goldapi.js';
-import { getUserById, logApiUsage, getAllUsers, updateUserAdminStatus, getPricesByMetal, savePrice } from './database.js';
+import { getUserById, logApiUsage, getAllUsers, updateUserAdminStatus, getPricesByMetal, savePrice, getUserApiKey } from './database.js';
 
 export function apiRoutes(server) {
   server.get('/api/prices', async (request) => {
@@ -36,10 +36,9 @@ export function apiRoutes(server) {
       const currency = url.searchParams.get('currency') || 'GBP';
       const date = url.searchParams.get('date') || null;
       
-      const user = getUserById(auth.user.userId);
-      const apiKey = user?.goldapi_key || null;
+      const apiKey = getUserApiKey(auth.user.userId);
       
-const data = await fetchMetalPrice(metal, currency, date, apiKey);
+      const data = await fetchMetalPrice(metal, currency, date, apiKey);
         
         logApiUsage(auth.user.userId, '/api/metal-price', metal, currency);
         
@@ -74,8 +73,7 @@ const data = await fetchMetalPrice(metal, currency, date, apiKey);
     }
     
     try {
-      const user = getUserById(auth.user.userId);
-      const apiKey = user?.goldapi_key || null;
+      const apiKey = getUserApiKey(auth.user.userId);
       
       const data = await fetchAccountStats(apiKey);
       

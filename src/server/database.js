@@ -1,4 +1,5 @@
 import { Database } from 'bun:sqlite';
+import { encrypt, decrypt } from './encryption.js';
 
 const db = new Database('stackers.db');
 
@@ -17,8 +18,16 @@ export function createUser(username, email, passwordHash) {
 }
 
 export function updateUserGoldApiKey(userId, goldapiKey, goldapiSecret) {
+  const encryptedKey = encrypt(goldapiKey);
+  const encryptedSecret = encrypt(goldapiSecret);
   const stmt = db.prepare('UPDATE users SET goldapi_key = ?, goldapi_secret = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?');
-  return stmt.run(goldapiKey, goldapiSecret, userId);
+  return stmt.run(encryptedKey, encryptedSecret, userId);
+}
+
+export function getUserApiKey(userId) {
+  const user = db.prepare('SELECT goldapi_key FROM users WHERE id = ?').get(userId);
+  if (!user?.goldapi_key) return null;
+  return decrypt(user.goldapi_key);
 }
 
 export function updateUserSettings(userId, settings) {
