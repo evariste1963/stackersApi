@@ -166,7 +166,7 @@ body {
   font-family: 'Google Sans', Roboto, Arial, sans-serif;
   font-size: 1.5rem;
   background: var(--box-bg-color);
-  margin: 0 2rem;
+  margin: 0 1rem;
   border: solid 2px var(--box-border);
   border-radius: 5%/100%;
 }
