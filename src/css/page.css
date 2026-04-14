@@ -440,9 +440,15 @@ footer {
   border: solid 2px var(--box-border);
   border-radius: 1rem;
   padding: 2rem;
-  width: 100%;
-  max-width: 400px;
+  width: 30vw;
+  min-width: 600px;
+  height: 75vh;
+  min-height: auto;
   text-align: center;
+}
+
+.auth-box {
+  height: auto;
 }
 
 .auth-logo,

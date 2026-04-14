@@ -97,7 +97,7 @@
           <p><strong>Email:</strong> ${user.email}</p>
           <p><strong>Admin:</strong> ${user.isAdmin ? 'Yes' : 'No'}</p>
           <p><strong>GoldAPI Key:</strong> ${user.hasGoldApiKey ? 'Configured' : 'Using admin key'}</p>
-          <p><strong>Member since:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
+          <p><strong>Member since:</strong> ${new Date(user.createdAt).toLocaleDateString('en-GB')}</p>
         `;
         
         if (!user.hasGoldApiKey && !user.isAdmin) {
