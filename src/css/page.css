@@ -131,8 +131,8 @@ body {
 .btn-update,
 .btn-stack{
   position: relative;
-  border-top: solid 2px #fff;
-  border-bottom: solid 2px #fff;
+  border-top: solid 2px #fff !important;
+  border-bottom: solid 2px #fff !important;
   border-left: none;
   border-right: none;
   font-size: 1.5rem;
