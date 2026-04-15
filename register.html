@@ -65,10 +65,11 @@
         return;
       }
       
-      try {
-        await register(username, email, password);
-        window.location.href = '/settings.html?newuser=1';
-      } catch (err) {
+        try {
+          await register(username, email, password);
+          sessionStorage.setItem('showSettingsModal', 'true');
+          window.location.href = '/settings.html';
+       } catch (err) {
         errorDiv.textContent = err.message;
         errorDiv.classList.remove('hidden');
       }

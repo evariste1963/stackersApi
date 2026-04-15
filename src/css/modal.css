@@ -148,7 +148,7 @@ button {
 }
 
 .modal-content {
-  background: var(--modal-bg, #1a1a3a);
+  background: var(--box-background-color, #1a1a3a);
   padding: 2rem;
   border-radius: 1rem;
   max-width: 40rem;

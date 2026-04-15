@@ -92,6 +92,15 @@
         }
         
         const user = await response.json();
+        const showOnboarding = sessionStorage.getItem('showSettingsModal') === 'true';
+        
+        if (showOnboarding) {
+          sessionStorage.removeItem('showSettingsModal');
+          if (!user.hasGoldApiKey && !user.isAdmin) {
+            goldApiModal.classList.remove('hidden');
+          }
+        }
+        
         document.getElementById('profileInfo').innerHTML = `
           <p><strong>Username:</strong> ${user.username}</p>
           <p><strong>Email:</strong> ${user.email}</p>
