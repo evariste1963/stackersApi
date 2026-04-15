@@ -111,6 +111,8 @@ const init = async function () {
     spotDataView.renderError('Please login to view prices');
     return;
   }
+
+  await loadProfile();
   
   const fromSettings = document.referrer.includes('settings.html') || 
                       document.referrer.includes('login.html') ||
@@ -216,6 +218,8 @@ async function loadProfile() {
     
     if (!user.hasGoldApiKey && !user.isAdmin) {
       setTimeout(() => {
+        settingsOverlay.classList.remove('hidden');
+        settingsWindow.classList.remove('hidden');
         document.getElementById('goldApiModal').classList.remove('hidden');
       }, 800);
     } else {

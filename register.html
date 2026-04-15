@@ -67,8 +67,7 @@
       
         try {
           await register(username, email, password);
-          sessionStorage.setItem('showSettingsModal', 'true');
-          window.location.href = '/settings.html';
+          window.location.href = '/';
        } catch (err) {
         errorDiv.textContent = err.message;
         errorDiv.classList.remove('hidden');
