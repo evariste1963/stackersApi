@@ -31,7 +31,7 @@ function initTheme() {
 }
 
 function updateModalBackgrounds(theme) {
-  const bgColor = theme === 'dark' ? '#16213e' : '#ffffff';
+  const bgColor = theme === 'dark' ? '#242424' : '#ffffff';
   document.querySelectorAll('[data-bg]').forEach(el => {
     el.style.backgroundColor = bgColor;
   });
