@@ -1,5 +1,6 @@
 :root {
   --theme: 'dark';
+  --page-width: 85%;
 }
 
 [data-theme="dark"] {
