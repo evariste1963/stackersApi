@@ -2,3 +2,8 @@
 @import url('/src/css/theme.css');
 @import url('/src/css/modal.css');
 @import url('/src/css/spinner.css');
+
+/* Force override for testing */
+.settings-window, .add-stack-window {
+  background-color: var(--modal-bg) !important;
+}
