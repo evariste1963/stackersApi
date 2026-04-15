@@ -313,7 +313,7 @@ body {
   box-sizing: border-box;
   overflow: hidden;
 }
-    */
+    
 #chart {
   width: 100% !important;
   height: 350px !important;
@@ -325,7 +325,7 @@ body {
   border: solid 2px var(--box-border);
   border-radius: 1rem;
 }
-
+*/
 .statTicker {
   grid-column: 7 / 9;
   grid-row: 1 / 2;
