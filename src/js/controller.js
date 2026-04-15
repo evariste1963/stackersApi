@@ -20,11 +20,20 @@ function initTheme() {
   const savedTheme = localStorage.getItem(THEME_KEY) || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
   themeSwitch.checked = savedTheme === 'dark';
+  updateModalBackgrounds(savedTheme);
   
   themeSwitch.addEventListener('change', (e) => {
     const theme = e.target.checked ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem(THEME_KEY, theme);
+    updateModalBackgrounds(theme);
+  });
+}
+
+function updateModalBackgrounds(theme) {
+  const bgColor = theme === 'dark' ? '#16213e' : '#ffffff';
+  document.querySelectorAll('[data-bg]').forEach(el => {
+    el.style.backgroundColor = bgColor;
   });
 }
 
