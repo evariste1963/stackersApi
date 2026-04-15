@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/src/css/main.css" />
+    <link rel="stylesheet" href="/src/css/settings.css" />
     
     <script type="importmap">
     {
@@ -48,7 +49,7 @@
               <!-- <div class="dropdown" id="accountDropdown" style="display: none;"> -->
                 <button class="btn-stack auth-dropdown" id="accountDropdown">Account ▼</button>
                 <div class="dropdown-content">
-                  <a href="/settings.html">Settings</a>
+                  <a href="#" id="settingsLink">Settings</a>
                   <a href="#" id="logoutLink">Logout</a>
                 </div>
               <!-- </div> -->
@@ -90,6 +91,60 @@
               <span style="font-size: 2rem">Submit</span>
             </button>
           </form>
+        </div>
+      </div>
+      <div class="settings-overlay hidden">
+        <div class="settings-window hidden">
+          <button type="button" class="btn--close-settings">&times;</button>
+          <div class="settings-header">
+            <img src="./src/img/pngegg.png" alt="logo" class="settings-logo">
+            <h1>User Settings</h1>
+          </div>
+          
+          <div id="profileSection" class="settings-section">
+            <h2>Profile</h2>
+            <div id="profileInfo" class="profile-info"></div>
+          </div>
+          
+          <div class="settings-section">
+            <h2>GoldAPI Configuration</h2>
+            <div id="newUserMsg" class="info-msg hidden">
+              <p>Welcome! To fetch live metal prices, you need a GoldAPI key. </p>
+              <p>Get a free key at <a href="https://www.goldapi.io/" target="_blank" rel="noopener">goldapi.io</a>, then paste it below.</p>
+            </div>
+            
+            <div id="goldApiModal" class="modal-overlay hidden">
+              <div class="modal-content">
+                <h2>Welcome to Stackers API!</h2>
+                <p>To fetch live metal prices, you need a GoldAPI key.</p>
+                <p>Get a free key at <a href="https://www.goldapi.io/" target="_blank" rel="noopener">goldapi.io</a></p>
+                <p>Then paste your key in the GoldAPI Configuration section below and save.</p>
+                <button id="acknowledgeBtn" class="btn-submit">I understand, let me set up my key</button>
+              </div>
+            </div>
+            <p class="help-text">Enter your own GoldAPI key to track your usage separately, or use the admin key.</p>
+            <form id="goldApiForm" class="settings-form">
+              <div class="form-group">
+                <label for="goldapiKey">GoldAPI Key</label>
+                <div class="input-with-button">
+                  <input type="password" id="goldapiKey" name="goldapiKey" placeholder="goldapi-xxxxx">
+                  <button type="submit" id="saveBtn" class="btn-submit" disabled>Save Api Key</button>
+                </div>
+              </div>
+              <div id="settingsMsg" class="success-msg hidden"></div>
+            </form>
+          </div>
+          
+          <div id="adminPanel" class="settings-section hidden">
+            <h2>Admin Panel</h2>
+            <p class="help-text">Manage user admin status</p>
+            <div id="userList" class="user-list"></div>
+          </div>
+          
+          <div class="settings-actions">
+            <button id="logoutBtn" class="btn-logout">Logout</button>
+            <button id="cancelBtn" class="btn-cancel">Cancel</button>
+          </div>
         </div>
       </div>
       <div>

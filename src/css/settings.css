@@ -1,0 +1,324 @@
+@import url('./modal.css');
+
+:root {
+  --color-primary: #f38e82;
+  --color-grad-1: #fbdb89;
+  --color-grad-2: #f48982;
+  --color-grey-light-1: #f9f5f3;
+  --color-grey-light-2: #f2efee;
+  --color-grey-light-3: #d3c7c3;
+  --color-grey-dark-1: #615551;
+  --color-grey-dark-2: #918581;
+  --font-family: Ink free, cursive, sans-serif;
+}
+
+.settings-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s, visibility 0.4s;
+}
+
+.settings-overlay.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.settings-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: white;
+  border-radius: 9px;
+  padding: 3rem 4rem;
+  box-shadow: 0 6rem 6rem rgba(0, 0, 0, 1);
+  z-index: 1000;
+  transition: opacity 0.4s, visibility 0.4s;
+}
+
+.settings-window.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.btn--close-settings {
+  font-family: inherit;
+  color: inherit;
+  position: absolute;
+  top: 0.5rem;
+  right: 1.6rem;
+  font-size: 3.5rem;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.settings-box {
+  width: 100%;
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.settings-container {
+  display: none;
+}
+
+.settings-container.visible {
+  display: block;
+}
+
+.settings-header .settings-logo {
+  width: 80px;
+  height: 60px;
+  margin: 0;
+}
+
+.settings-header h1 {
+  font-size: 2.5rem;
+  color: var(--color-grey-dark-1);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+
+.settings-window h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  padding-top: 1rem;
+  color: var(--color-grey-dark-1);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.settings-window .settings-section {
+  margin:1.5rem 0;
+  text-align: left;
+}
+
+.settings-window .settings-section.hidden {
+  display: none;
+}
+
+.settings-window .settings-section h2 {
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--color-primary);
+  padding-bottom: 0.5rem;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.settings-window .profile-info p {
+  margin: 0.5rem 0;
+  font-size: 1.25rem;
+  color: var(--color-grey-dark-1);
+}
+
+.settings-window .form-group {
+  display: flex;
+  width: 100%;
+  font-size: 1rem;
+  flex-direction: column;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.settings-window .form-group .input-with-button {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.settings-window .form-group .input-with-button input {
+  flex: 1;
+  min-width: 0;
+}
+
+.settings-window .form-group label {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  color: var(--color-grey-dark-1);
+  font-size: 1.25rem;
+}
+
+.settings-window .form-group input {
+  padding: 0.75rem;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  font-size: 1.25rem;
+  font-family: inherit;
+  text-align: center;
+  cursor: text;
+}
+
+.settings-window .form-group input:focus {
+  outline: 2px solid var(--color-primary);
+}
+
+.settings-window .help-text {
+  font-size: 1.1rem;
+  color: var(--color-grey-dark-2);
+  margin-bottom: 1rem;
+}
+
+.settings-window .info-msg,
+.settings-window .info-msg a {
+  background: rgba(243, 142, 130, 0.2);
+  color: var(--color-grey-dark-1);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.settings-window .info-msg.hidden {
+  display: none;
+}
+
+.settings-window .info-msg a {
+  padding: 0;
+  text-decoration: underline;
+}
+
+.settings-window .btn-submit {
+  padding: 0.75rem 1.5rem;
+  background: var(--color-primary);
+  margin-top:0;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.25rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.settings-window .btn-submit:hover:not(:disabled) {
+  background: var(--color-grad-2);
+}
+
+.settings-window .btn-submit:disabled {
+  background: var(--color-grey-light-3);
+  color: var(--color-grey-dark-1);
+  cursor: not-allowed;
+}
+
+.settings-window .success-msg {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
+  background: rgba(10, 92, 10, 0.2);
+  color: rgb(10, 92, 10);
+}
+
+.settings-window .success-msg.hidden {
+  display: none;
+}
+
+.settings-window .settings-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.settings-window .btn-logout {
+  padding: 0.75rem 1.5rem;
+  background: rgb(199, 15, 15);
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.settings-window .btn-logout:hover {
+  background: #b30f0f;
+}
+
+.settings-window .btn-cancel {
+  padding: 0.75rem 1.5rem;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.settings-window .btn-cancel:hover {
+  background: var(--color-grad-2);
+}
+
+.settings-window .admin-panel {
+  margin-top: 1.5rem;
+}
+
+.settings-window .admin-panel.hidden {
+  display: none;
+}
+
+.settings-window .user-list {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.settings-window .user-item {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0.8rem;
+  background: var(--color-grey-light-2);
+  border: 2px solid var(--color-primary);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.settings-window .user-item .user-info {
+  color: var(--color-grey-dark-1);
+  font-weight: 600;
+}
+
+.settings-window .admin-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.settings-window .admin-toggle span {
+  color: var(--color-primary);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.settings-window .admin-toggle input {
+  width: 1.4rem;
+  height: 1.4rem;
+  cursor: pointer;
+  accent-color: var(--color-primary);
+}

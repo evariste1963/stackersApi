@@ -2,7 +2,7 @@ import View from './view.js';
 
 const modalWindow = document.querySelector('.add-stack-window');
 const overlay = document.querySelector('.overlay');
-const modal = document.querySelectorAll('.modal');
+const addStackBtns = document.querySelectorAll('.btn-stack.modal, .btn--close-modal');
 
 class AddStackView extends View {
   _parentElement = document.querySelector('.upload');
@@ -18,7 +18,7 @@ class AddStackView extends View {
   };
 
   addHandlerModal(handler) {
-    modal.forEach(btn => btn.addEventListener('click', handler));
+    addStackBtns.forEach(btn => btn.addEventListener('click', handler));
   }
 }
 
