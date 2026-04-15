@@ -1,20 +1,4 @@
-:root {
-  --gold-font-color: rgb(221, 189, 7);
-  --box-font-color: rgb(4, 3, 19);
-  --secondary-bg-color: linear-gradient(
-    to bottom,
-    rgba(7, 7, 128, 0.8),
-    rgba(3, 3, 57, 0.8)
-  );
-  --box-border: rgba(5, 5, 93, 0.8);
-  --box-bg-color: rgba(209, 204, 204, 0.8);
-  --price-up-color: rgb(10, 92, 10);
-  --price-drop-color: rgb(199, 15, 15);
-  --font-family: Ink free, cursive, sans-serif;
-  --page-width: 85%;
-  --color-grey-light-3: #d3c7c3;
-  --color-grey-dark-1: #615551;
-}
+
 
 * {
   padding: 0;
@@ -162,10 +146,10 @@ body {
   flex-direction: row;
   justify-content: left;
   z-index: 999;
-  color: rgba(33, 32, 32, 0.8);
+  color: var(--text-primary);
   font-family: 'Google Sans', Roboto, Arial, sans-serif;
   font-size: 1.5rem;
-  background: var(--box-bg-color);
+  background: var(--color-grey-light-2);
   margin: 0 1rem;
   border: solid 2px var(--box-border);
   border-radius: 5%/100%;
@@ -437,7 +421,7 @@ footer {
 .auth-box,
 .settings-box {
   background: var(--box-bg-color);
-  border: solid 2px var(--box-border);
+  border: solid 2px ;
   border-radius: 1rem;
   padding: 2rem;
   width: 30vw;
@@ -524,7 +508,7 @@ footer {
 
 .btn-submit {
   padding: 0.75rem 1.5rem;
-  background: var(--secondary-bg-color);
+  background: rgba(7, 7, 128, 0.7);
   color: #fff;
   border: none;
   border-radius: 0.5rem;
@@ -712,11 +696,11 @@ footer {
 }
 
 .auth-link {
-  background: var(--price-up-color);
+  background: #0a6b0a;
 }
 
 .auth-link:hover {
-  background: #0a6b0a;
+  background: #0a330a;
 }
 
 .auth-btn {

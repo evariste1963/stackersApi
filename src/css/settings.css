@@ -1,5 +1,6 @@
 @import url('./modal.css');
 
+
 .settings-overlay {
   position: fixed;
   top: 0;
@@ -108,9 +109,9 @@
 }
 
 .settings-window .settings-section h2 {
-  color: var(--color-primary, #f38e82);
+  color: var(--text-primary, #f38e82);
   margin-bottom: 1rem;
-  border-bottom: 2px solid var(--color-primary, #f38e82);
+  border-bottom: 2px solid var(--border-color, #f38e82);
   padding-bottom: 0.5rem;
   font-size: 1.5rem;
   text-transform: uppercase;
@@ -233,9 +234,8 @@
 }
 
 .settings-window .btn-logout {
-  padding: 0.75rem 1.5rem;
-  background: var(--error-color, rgb(199, 15, 15));
   color: var(--text-primary, #ffffff);
+  background: var(--color-primary, #f38e82);
   border: none;
   border-radius: 0.5rem;
   font-size: 1rem;
@@ -284,7 +284,7 @@
   align-items: center;
   padding: 0.6rem 0.8rem;
   background: var(--bg-card, #3a3a5a);
-  border: 2px solid var(--color-primary, #f38e82);
+  border: 2px solid var(--border-light, #f38e82);
   border-radius: 0.5rem;
   font-size: 1rem;
 }
@@ -302,7 +302,7 @@
 }
 
 .settings-window .admin-toggle span {
-  color: var(--color-primary, #f38e82);
+  color: var(--text-primary, #f38e82);
   font-size: 0.95rem;
   font-weight: 700;
   text-transform: uppercase;
