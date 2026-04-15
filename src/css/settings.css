@@ -1,17 +1,5 @@
 @import url('./modal.css');
 
-:root {
-  --color-primary: #f38e82;
-  --color-grad-1: #fbdb89;
-  --color-grad-2: #f48982;
-  --color-grey-light-1: #f9f5f3;
-  --color-grey-light-2: #f2efee;
-  --color-grey-light-3: #d3c7c3;
-  --color-grey-dark-1: #615551;
-  --color-grey-dark-2: #918581;
-  --font-family: Ink free, cursive, sans-serif;
-}
-
 .settings-overlay {
   position: fixed;
   top: 0;
@@ -42,13 +30,13 @@
   width: 50rem;
   max-height: 90vh;
   overflow-y: auto;
-  background-color: var(--modal-bg, white);
+  background-color: var(--modal-bg, #ffffff);
   border-radius: 9px;
   padding: 3rem 4rem;
   box-shadow: var(--modal-shadow, 0 6rem 6rem rgba(0, 0, 0, 1));
   z-index: 1000;
   transition: opacity 0.4s, visibility 0.4s;
-  color: var(--box-font-color);
+  color: var(--box-font-color, #333333);
 }
 
 .settings-window.hidden {
@@ -58,7 +46,7 @@
 
 .btn--close-settings {
   font-family: inherit;
-  color: inherit;
+  color: var(--text-primary, #333333);
   position: absolute;
   top: 0.5rem;
   right: 1.6rem;
@@ -95,7 +83,7 @@
 
 .settings-header h1 {
   font-size: 2.5rem;
-  color: var(--color-grey-dark-1);
+  color: var(--text-primary, #333333);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin: 0;
@@ -105,7 +93,7 @@
   font-size: 2.5rem;
   margin: 0;
   padding-top: 1rem;
-  color: var(--color-grey-dark-1);
+  color: var(--text-primary, #333333);
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -120,9 +108,9 @@
 }
 
 .settings-window .settings-section h2 {
-  color: var(--color-primary);
+  color: var(--color-primary, #f38e82);
   margin-bottom: 1rem;
-  border-bottom: 2px solid var(--color-primary);
+  border-bottom: 2px solid var(--color-primary, #f38e82);
   padding-bottom: 0.5rem;
   font-size: 1.5rem;
   text-transform: uppercase;
@@ -131,7 +119,7 @@
 .settings-window .profile-info p {
   margin: 0.5rem 0;
   font-size: 1.25rem;
-  color: var(--color-grey-dark-1);
+  color: var(--text-secondary, #666666);
 }
 
 .settings-window .form-group {
@@ -157,7 +145,7 @@
 .settings-window .form-group label {
   font-weight: bold;
   margin-bottom: 0.25rem;
-  color: var(--color-grey-dark-1);
+  color: var(--text-primary, #333333);
   font-size: 1.25rem;
 }
 
@@ -170,24 +158,24 @@
   font-family: inherit;
   text-align: center;
   cursor: text;
-  background-color: var(--input-bg, #fff);
-  color: var(--box-font-color);
+  background-color: var(--input-bg, #ffffff);
+  color: var(--text-primary, #333333);
 }
 
 .settings-window .form-group input:focus {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--color-primary, #f38e82);
 }
 
 .settings-window .help-text {
   font-size: 1.1rem;
-  color: var(--color-grey-dark-2);
+  color: var(--text-muted, #999999);
   margin-bottom: 1rem;
 }
 
 .settings-window .info-msg,
 .settings-window .info-msg a {
   background: rgba(243, 142, 130, 0.2);
-  color: var(--color-grey-dark-1);
+  color: var(--text-primary, #333333);
   padding: 1rem;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
@@ -204,9 +192,9 @@
 
 .settings-window .btn-submit {
   padding: 0.75rem 1.5rem;
-  background: var(--color-primary);
+  background: var(--color-primary, #f38e82);
   margin-top:0;
-  color: white;
+  color: var(--text-primary, #333333);
   border: none;
   border-radius: 0.5rem;
   font-size: 1.25rem;
@@ -216,12 +204,12 @@
 }
 
 .settings-window .btn-submit:hover:not(:disabled) {
-  background: var(--color-grad-2);
+  background: var(--color-grad-2, #f48982);
 }
 
 .settings-window .btn-submit:disabled {
-  background: var(--color-grey-light-3);
-  color: var(--color-grey-dark-1);
+  background: var(--color-grey-light-3, #d3c7c3);
+  color: var(--color-grey-dark-1, #615551);
   cursor: not-allowed;
 }
 
@@ -229,8 +217,8 @@
   padding: 0.75rem;
   border-radius: 0.5rem;
   margin-top: 0.5rem;
-  background: rgba(10, 92, 10, 0.2);
-  color: rgb(10, 92, 10);
+  background: var(--success-color, rgb(10, 92, 10));
+  color: var(--text-primary, #ffffff);
 }
 
 .settings-window .success-msg.hidden {
@@ -246,8 +234,8 @@
 
 .settings-window .btn-logout {
   padding: 0.75rem 1.5rem;
-  background: rgb(199, 15, 15);
-  color: #fff;
+  background: var(--error-color, rgb(199, 15, 15));
+  color: var(--text-primary, #ffffff);
   border: none;
   border-radius: 0.5rem;
   font-size: 1rem;
@@ -255,13 +243,14 @@
 }
 
 .settings-window .btn-logout:hover {
-  background: #b30f0f;
+  background: var(--error-color, rgb(199, 15, 15));
+  filter: brightness(0.8);
 }
 
 .settings-window .btn-cancel {
   padding: 0.75rem 1.5rem;
-  background: var(--color-primary);
-  color: #fff;
+  background: var(--color-primary, #f38e82);
+  color: var(--text-primary, #333333);
   border: none;
   border-radius: 0.5rem;
   font-size: 1rem;
@@ -269,7 +258,7 @@
 }
 
 .settings-window .btn-cancel:hover {
-  background: var(--color-grad-2);
+  background: var(--color-grad-2, #f48982);
 }
 
 .settings-window .admin-panel {
@@ -294,14 +283,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.6rem 0.8rem;
-  background: var(--color-grey-light-2);
-  border: 2px solid var(--color-primary);
+  background: var(--color-grey-light-2, #f2efee);
+  border: 2px solid var(--color-primary, #f38e82);
   border-radius: 0.5rem;
   font-size: 1rem;
 }
 
 .settings-window .user-item .user-info {
-  color: var(--color-grey-dark-1);
+  color: var(--text-primary, #333333);
   font-weight: 600;
 }
 
@@ -313,7 +302,7 @@
 }
 
 .settings-window .admin-toggle span {
-  color: var(--color-primary);
+  color: var(--color-primary, #f38e82);
   font-size: 0.95rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -323,5 +312,5 @@
   width: 1.4rem;
   height: 1.4rem;
   cursor: pointer;
-  accent-color: var(--color-primary);
+  accent-color: var(--color-primary, #f38e82);
 }
