@@ -2,3 +2,11 @@
 @import url('/src/css/modal.css');
 @import url('/src/css/spinner.css');
 @import url('/src/css/theme.css');
+
+/* DEBUG: verify theme is applied */
+html[data-theme="dark"] .add-stack-window {
+  background-color: #16213e !important;
+}
+html[data-theme="light"] .add-stack-window {
+  background-color: #ffffff !important;
+}
