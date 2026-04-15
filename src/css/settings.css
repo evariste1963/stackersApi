@@ -283,14 +283,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.6rem 0.8rem;
-  background: var(--color-grey-light-2, #f2efee);
+  background: var(--color-grey-light-2, #3a3a5a);
   border: 2px solid var(--color-primary, #f38e82);
   border-radius: 0.5rem;
   font-size: 1rem;
 }
 
 .settings-window .user-item .user-info {
-  color: var(--text-primary, #333333);
+  color: var(--text-primary, #e8e8e8);
   font-weight: 600;
 }
 
