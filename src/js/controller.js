@@ -13,6 +13,21 @@ const authNav = document.getElementById('authNav');
 const settingsOverlay = document.querySelector('.settings-overlay');
 const settingsWindow = document.querySelector('.settings-window');
 
+const THEME_KEY = 'stackers_theme';
+
+function initTheme() {
+  const themeSwitch = document.getElementById('themeSwitch');
+  const savedTheme = localStorage.getItem(THEME_KEY) || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeSwitch.checked = savedTheme === 'dark';
+  
+  themeSwitch.addEventListener('change', (e) => {
+    const theme = e.target.checked ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem(THEME_KEY, theme);
+  });
+}
+
 const METAL_CACHE_KEY = 'stackers_metal_cache';
 const ACCOUNT_CACHE_KEY = 'stackers_account_cache';
 
@@ -80,6 +95,7 @@ function renderAuthNav() {
   }
 
 const init = async function () {
+  initTheme();
   renderAuthNav();
   setupSettingsModal();
   if (!isAuthenticated()) {

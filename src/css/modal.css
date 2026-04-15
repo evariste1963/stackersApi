@@ -8,6 +8,8 @@
   --color-grey-dark-1: #615551;
   --color-grey-dark-2: #918581;
   --font-family: Ink free, cursive, sans-serif;
+  --modal-bg: #ffffff;
+  --modal-shadow: 0 6rem 6rem rgba(0, 0, 0, 1);
 }
 .add-stack-window {
   position: fixed;
@@ -16,12 +18,13 @@
   transform: translate(-50%, -50%);
   width: 50rem;
   height: auto;
-  background-color: white;
+  background-color: var(--modal-bg, white);
   border-radius: 9px;
   padding: 3rem 4rem;
-  box-shadow: 0 6rem 6rem rgba(0, 0, 0, 1);
+  box-shadow: var(--modal-shadow, 0 6rem 6rem rgba(0, 0, 0, 1));
   z-index: 1000;
   transition: opacity 0.4s, visibility 0.4s;
+  color: var(--box-font-color);
 }
 .btn--close-modal {
   font-family: inherit;
@@ -140,7 +143,7 @@ button {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: var(--bg-overlay, rgba(0, 0, 0, 0.6));
   backdrop-filter: blur(4px);
   z-index: 99999;
   display: flex;
@@ -153,29 +156,30 @@ button {
 }
 
 .modal-content {
-  background: #1a1a3a;
+  background: var(--modal-bg, #1a1a3a);
   padding: 2rem;
   border-radius: 1rem;
   max-width: 40rem;
   text-align: center;
   box-shadow: 0 4rem 4rem rgba(0, 0, 0, 0.3);
-  border: 2px solid #fff;
+  border: 2px solid var(--text-primary, #fff);
+  color: var(--text-primary, #fff);
 }
 
 .modal-content h2 {
   margin-bottom: 1rem;
-  color: #fff;
+  color: var(--text-primary, #fff);
   font-size: 1.75rem;
 }
 
 .modal-content p {
   margin: 0.75rem 0;
-  color: #fff;
+  color: var(--text-primary, #fff);
   font-size: 1.25rem;
 }
 
 .modal-content a {
-  color: #fff;
+  color: var(--text-primary, #fff);
   text-decoration: underline;
   font-size: 1.25rem;
 }

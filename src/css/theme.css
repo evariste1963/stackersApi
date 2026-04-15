@@ -1,0 +1,151 @@
+:root {
+  --theme: 'light';
+}
+
+[data-theme="dark"] {
+  --bg-primary: #1a1a2e;
+  --bg-secondary: #16213e;
+  --bg-card: #0f3460;
+  --bg-overlay: rgba(0, 0, 0, 0.7);
+  
+  --text-primary: #e8e8e8;
+  --text-secondary: #b8b8b8;
+  --text-muted: #888;
+  
+  --border-color: #2a2a4a;
+  --border-light: #3a3a5a;
+  
+  --accent-primary: #1e1e3c;
+  --accent-secondary: #f5a962;
+  --accent-gold: #f4d03f;
+  
+  --success-color: #4ade80;
+  --error-color: #f87171;
+  
+  --input-bg: #2a2a4a;
+  --input-border: #3a3a5a;
+  
+  --box-bg-color: rgba(30, 30, 60, 0.9);
+  --box-border: rgba(80, 80, 150, 0.8);
+  --secondary-bg-color: linear-gradient(to bottom, rgba(30, 30, 80, 0.9), rgba(20, 20, 60, 0.9));
+  
+  --color-primary: #e94560;
+  --color-grad-1: #f5a962;
+  --color-grad-2: #e94560;
+  --color-grey-light-1: #2a2a4a;
+  --color-grey-light-2: #3a3a5a;
+  --color-grey-light-3: #4a4a6a;
+  --color-grey-dark-1: #e8e8e8;
+  --color-grey-dark-2: #b8b8b8;
+  
+  --gold-font-color: #f4d03f;
+  --box-font-color: #e8e8e8;
+  --price-up-color: #4ade80;
+  --price-drop-color: #f87171;
+  
+  --spinner-bg: #3a3a5a;
+  --spinner-color: #e8e8e8;
+  
+  --modal-bg: #16213e;
+  --modal-shadow: 0 6rem 6rem rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="light"] {
+  --bg-primary: #f5f5f5;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-overlay: rgba(0, 0, 0, 0.4);
+  
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  
+  --border-color: #ddd;
+  --border-light: #eee;
+  
+  --accent-primary: #f38e82;
+  --accent-secondary: #fbdb89;
+  --accent-gold: rgb(221, 189, 7);
+  
+  --success-color: rgb(10, 92, 10);
+  --error-color: rgb(199, 15, 15);
+  
+  --input-bg: #fff;
+  --input-border: #ddd;
+  
+  --box-bg-color: rgba(209, 204, 204, 0.8);
+  --box-border: rgba(5, 5, 93, 0.8);
+  --secondary-bg-color: linear-gradient(to bottom, rgba(7, 7, 128, 0.8), rgba(3, 3, 57, 0.8));
+  
+  --color-primary: #f38e82;
+  --color-grad-1: #fbdb89;
+  --color-grad-2: #f48982;
+  --color-grey-light-1: #f9f5f3;
+  --color-grey-light-2: #f2efee;
+  --color-grey-light-3: #d3c7c3;
+  --color-grey-dark-1: #615551;
+  --color-grey-dark-2: #918581;
+  
+  --gold-font-color: rgb(221, 189, 7);
+  --box-font-color: rgb(4, 3, 19);
+  --price-up-color: rgb(10, 92, 10);
+  --price-drop-color: rgb(199, 15, 15);
+  
+  --spinner-bg: #736563;
+  --spinner-color: #fff;
+  
+  --modal-bg: #ffffff;
+  --modal-shadow: 0 6rem 6rem rgba(0, 0, 0, 1);
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+.theme-toggle input {
+  display: none;
+}
+
+.theme-toggle .toggle-track {
+  width: 3rem;
+  height: 1.5rem;
+  background: var(--color-grey-light-3);
+  border-radius: 1rem;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.theme-toggle .toggle-thumb {
+  position: absolute;
+  top: 0.15rem;
+  left: 0.15rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+[data-theme="dark"] .theme-toggle .toggle-track {
+  background: var(--accent-primary);
+}
+
+[data-theme="dark"] .theme-toggle .toggle-thumb {
+  transform: translateX(1.5rem);
+}
+
+.theme-label {
+  font-size: 2rem;
+  color: var(--gold-font-color);
+  user-select: none;
+}

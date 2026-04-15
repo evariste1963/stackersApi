@@ -18,7 +18,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: var(--bg-overlay, rgba(0, 0, 0, 0.4));
   backdrop-filter: blur(4px);
   z-index: 99999;
   display: flex;
@@ -42,12 +42,13 @@
   width: 50rem;
   max-height: 90vh;
   overflow-y: auto;
-  background-color: white;
+  background-color: var(--modal-bg, white);
   border-radius: 9px;
   padding: 3rem 4rem;
-  box-shadow: 0 6rem 6rem rgba(0, 0, 0, 1);
+  box-shadow: var(--modal-shadow, 0 6rem 6rem rgba(0, 0, 0, 1));
   z-index: 1000;
   transition: opacity 0.4s, visibility 0.4s;
+  color: var(--box-font-color);
 }
 
 .settings-window.hidden {
@@ -163,12 +164,14 @@
 .settings-window .form-group input {
   padding: 0.75rem;
   width: 100%;
-  border: 1px solid #ddd;
+  border: 1px solid var(--input-border, #ddd);
   border-radius: 0.5rem;
   font-size: 1.25rem;
   font-family: inherit;
   text-align: center;
   cursor: text;
+  background-color: var(--input-bg, #fff);
+  color: var(--box-font-color);
 }
 
 .settings-window .form-group input:focus {
