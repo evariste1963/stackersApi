@@ -1,6 +1,6 @@
 import { authMiddleware, adminMiddleware } from './middleware.js';
 import { fetchMetalPrice, fetchAccountStats } from './goldapi.js';
-import { getUserById, logApiUsage, getAllUsers, updateUserAdminStatus, getPricesByMetal, savePrice, getUserApiKey } from './database.js';
+import { getUserById, logApiUsage, getAllUsers, updateUserAdminStatus, getPricesByMetal, savePrice, getUserApiKey, deleteUser } from './database.js';
 
 export function apiRoutes(server) {
   server.get('/api/prices', async (request) => {
@@ -218,6 +218,43 @@ export function apiRoutes(server) {
     } catch (error) {
       console.error('Admin update error:', error);
       return new Response(JSON.stringify({ error: 'Failed to update user' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+  });
+
+  server.delete('/api/admin/user', async (request) => {
+    const auth = adminMiddleware(request);
+    if (auth.error) {
+      return new Response(JSON.stringify({ error: auth.error }), {
+        status: auth.status,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+    
+    try {
+      const url = new URL(request.url);
+      const userId = parseInt(url.searchParams.get('id'));
+      console.log('Deleting user:', userId);
+      
+      if (isNaN(userId)) {
+        return new Response(JSON.stringify({ error: 'Invalid user ID' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+      
+      const result = deleteUser(userId);
+      console.log('Delete result:', result);
+      
+      return new Response(JSON.stringify({ message: 'User deleted' }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    } catch (error) {
+      console.error('Admin delete error:', error);
+      return new Response(JSON.stringify({ error: 'Failed to delete user' }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' }
       });

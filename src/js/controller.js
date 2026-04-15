@@ -253,6 +253,7 @@ async function loadAdminUsers() {
             <input type="checkbox" data-id="${u.id}" ${u.is_admin ? 'checked' : ''} ${isLocked ? 'disabled' : ''}>
             <span>Admin${isLocked ? '' : ''}</span>
           </label>
+          <button class="btn-delete-user" data-id="${u.id}" ${isLocked ? 'disabled' : ''}>Delete</button>
         </div>
       `;
       }).join('');
@@ -266,6 +267,18 @@ async function loadAdminUsers() {
             headers: { 'Content-Type': 'application/json', ...authHeader() },
             body: JSON.stringify({ isAdmin })
           });
+        });
+      });
+
+      userList.querySelectorAll('.btn-delete-user').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          const userId = e.target.dataset.id;
+          if (!confirm('Are you sure you want to delete this user?')) return;
+          await fetch('/api/admin/user?id=' + userId, {
+            method: 'DELETE',
+            headers: authHeader()
+          });
+          loadAdminUsers();
         });
       });
     }

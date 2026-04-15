@@ -65,6 +65,11 @@ export function updateUserAdminStatus(userId, isAdmin) {
   return stmt.run(isAdmin ? 1 : 0, userId);
 }
 
+export function deleteUser(userId) {
+  const stmt = db.prepare('DELETE FROM users WHERE id = ?');
+  return stmt.run(userId);
+}
+
 export function getPricesByMetal(metal = 'XAU') {
   return db.prepare('SELECT date, price FROM prices WHERE metal = ? ORDER BY date').all(metal);
 }

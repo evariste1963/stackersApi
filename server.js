@@ -29,7 +29,11 @@ function addRoute(method, path, handler) {
 }
 
 registerRoutes({ post: (path, handler) => addRoute('POST', path, handler) });
-apiRoutes({ get: (path, handler) => addRoute('GET', path, handler), post: (path, handler) => addRoute('POST', path, handler) });
+apiRoutes({ 
+  get: (path, handler) => addRoute('GET', path, handler), 
+  post: (path, handler) => addRoute('POST', path, handler),
+  delete: (path, handler) => addRoute('DELETE', path, handler)
+});
 
 serve({
   port: process.env.PORT || 3000,
