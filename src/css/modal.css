@@ -15,6 +15,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 50rem;
+  height: auto;
   background-color: white;
   border-radius: 9px;
   padding: 3rem 4rem;
@@ -184,4 +185,4 @@ button {
   font-size: 1.25rem;
   color: #fff;
   background: var(--color-primary);
-}
+}  
