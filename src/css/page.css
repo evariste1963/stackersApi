@@ -337,44 +337,37 @@ body {
   background: var(--box-bg-color);
   align-items: center;
   justify-content: flex-start;
-  margin: 0 1rem 0 0;
-  padding: 0.5rem 0;
-  height: 350px;
+  margin: auto;
+  padding: 1rem 0;
+  height: 100%;
+  width: 100%;
   box-sizing: border-box;
   border: solid 2px var(--box-border);
   border-radius: 1rem;
 }
 
 #statBox {
-  display: block;
-  grid-column: 7 / 9;
-  align-items: center; 
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
   font-size: 1.75rem;
+  margin: auto;
 }
 
-.changeP,
-.changeV {
- font-size: 1rem;
-  margin: 0;
+.stat-row {
+  display: flex;
+  justify-content: space-between;
 }
 
-#openPrice,
-#high,
-#low,
-#buy,
-#sell,
-#P18K,
-#P20K,
-#P22K,
-#P24K {
-  grid-column: 7 / 8; 
+.stat-label {
+  min-width: 120px;
   text-align: right;
-  margin: 0;
+  padding-right: 1rem;
 }
 
-#statBox span {
-  grid-column: 8 / 9;
-  padding-left: 1rem;
+.stat-value {
+  min-width: 80px;
+  text-align: left;
 }
 
 .userStack {
