@@ -348,7 +348,7 @@ body {
   display: block;
   grid-column: 7 / 9;
   align-items: center; 
-  font-size: 2rem;
+  font-size: 1.75rem;
 }
 
 .changeP,
