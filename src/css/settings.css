@@ -294,6 +294,10 @@
   font-weight: 600;
 }
 
+.user-info {
+  margin-left: 0.5rem;
+  width: 60%;
+}
 .settings-window .admin-toggle {
   display: flex;
   align-items: center;
@@ -316,7 +320,7 @@
 }
 
 .settings-window .btn-delete-user {
-  margin-left: auto;
+  margin: auto 0.5rem auto auto;
   padding: 0.3rem 0.6rem;
   background-color: #dc3545;
   color: #fff;

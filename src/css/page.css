@@ -589,7 +589,7 @@ footer {
   padding: 0;
   text-decoration: underline;
 }
-
+/*
 .user-list {
   display: flex;
   width: 100%;
@@ -635,7 +635,7 @@ footer {
   cursor: pointer;
   accent-color: #f38e82;
 }
-
+*/
 .settings-section {
   margin: 1.5rem 0;
   text-align: left;
