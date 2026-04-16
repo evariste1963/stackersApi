@@ -172,6 +172,7 @@ body {
 
 #metalCur {
   font-size: 1.25rem;
+  margin-left: 1rem;
 }
 
 #spotBox {
@@ -718,8 +719,7 @@ footer {
 .auth-nav {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-right: 2rem;
+  margin: auto auto auto 1rem;
 }
 
 .auth-dropdown {
@@ -732,6 +732,7 @@ footer {
 
 .auth-link,
 .auth-btn {
+  margin: auto 0.5rem auto auto;
   padding: 0.5rem 1rem;
   color: #fff;
   border: none;

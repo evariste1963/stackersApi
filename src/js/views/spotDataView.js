@@ -34,7 +34,7 @@ class SpotDataView extends View {
         : 'color: var(--price-drop-color)';
 
     result.exchange === 'FOREXCOM'
-      ? (result.srcExchange = `<img id=forex src=${result.forex} alt='forex' width='120' height='20' />`) //use forex img from adjusted result object
+      ? (result.srcExchange = `<img id=forex src=${result.forex} alt='forex' width='120' height='20'  />`) //use forex img from adjusted result object
       : (result.srcExchange = result.exchange);
 
     return !result.date
