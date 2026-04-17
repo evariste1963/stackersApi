@@ -4,6 +4,7 @@ const ApexCharts = window.ApexCharts || window.Apex;
 const MAX_DAYS = 90;
 
 let chart = null;
+export function getChart() { return chart; }
 
 function getTodayDateString() {
   return new Date().toISOString().split('T')[0];
@@ -56,6 +57,8 @@ export async function chartIt() {
   try {
     const data = await loadChartData();
     
+    const getTheme = () => document.documentElement.getAttribute('data-theme') || 'dark';
+
     const options = {
       series: [{ name: metal, data: data }],
       chart: {
@@ -64,6 +67,9 @@ export async function chartIt() {
         height: 350,
         zoom: { autoScaleYaxis: true },
         toolbar: { show: true }
+      },
+      theme: {
+        mode: getTheme()
       },
       dataLabels: { enabled: false },
       markers: { size: 0, style: 'hollow' },

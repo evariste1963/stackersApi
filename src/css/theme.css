@@ -48,7 +48,7 @@
   --spinner-color: #e8e8e8;
   
   --modal-bg: #242424;
-  --modal-shadow: 0 6rem 6rem rgba(0, 0, 0, 0.8);
+--modal-shadow: 0 6rem 6rem rgba(0, 0, 0, 0.8);
 }
 
 [data-theme="light"] {
@@ -149,4 +149,11 @@
   font-size: 2rem;
   color: var(--gold-font-color);
   user-select: none;
+}
+
+[data-theme="dark"] .apexcharts-xaxis-texts-g tspan,
+[data-theme="dark"] .apexcharts-yaxis-texts-g tspan,
+[data-theme="dark"] .apexcharts-xaxis-label tspan,
+[data-theme="dark"] .apexcharts-yaxis-label tspan {
+  fill: var(--box-font-color) !important;
 }

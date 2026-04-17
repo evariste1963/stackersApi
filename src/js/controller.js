@@ -4,7 +4,7 @@ import spotDataView from './views/spotDataView.js';
 import statisticDataView from './views/statisticDataView.js';
 import accountUpdateView from './views/accUpdateView.js';
 import * as helpers from './helpers.js';
-import { chartIt, updateChartPrice } from './views/chartView.js';
+import { chartIt, updateChartPrice, getChart } from './views/chartView.js';
 import { isAuthenticated, logout, getProfile, authHeader } from './auth.js';
 
 const btnUpdate = document.querySelector('.btn-update');
@@ -27,6 +27,11 @@ function initTheme() {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem(THEME_KEY, theme);
     updateModalBackgrounds(theme);
+    if (getChart()) {
+      getChart().updateOptions({
+        theme: { mode: theme }
+      });
+    }
   });
 }
 
