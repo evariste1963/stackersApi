@@ -11,7 +11,7 @@
   
   --text-primary: #e8e8e8;
   --text-secondary: #b8b8b8;
-  --text-muted: #888;
+  --text-muted: #999999;
   
   --border-color: #3a3a3a;
   --border-light: #4a4a4a;
@@ -59,7 +59,7 @@
   
   --text-primary: #333333;
   --text-secondary: #666666;
-  --text-muted: #999999;
+  --text-muted: #444444;
   
   --border-color: #ddd;
   --border-light: #eee;
@@ -78,7 +78,7 @@
   --box-border: rgba(5, 5, 93, 0.8);
   --secondary-bg-color: linear-gradient(to bottom, rgba(7, 7, 128, 0.8), rgba(3, 3, 57, 0.8));
   
-  --color-primary: #f38e82;
+  --color-primary: rgb(199,15,15);
   --color-grad-1: #fbdb89;
   --color-grad-2: #f48982;
   --color-grey-light-1: #f9f5f3;

@@ -1,6 +1,9 @@
 
+  * {
+  --btn-text: #e8e8e8;
+  --btn-red-background: rgb(199,15,15);
+  --btn-hover-background: #780606;
 
-* {
   padding: 0;
   margin: 0 auto;
   box-sizing: border-box;
@@ -44,7 +47,7 @@ body {
   background: var(--secondary-bg-color);
   z-index: 9999;
   padding-bottom: 0.5rem;
-  margin: 0 1rem 0.5rem 1rem;
+  margin: 0.5rem 1rem;
   border: solid 2px var(--box-bg-color);
   border-radius: 0.5rem 0.5rem 1rem 1rem;
 }
@@ -366,7 +369,7 @@ body {
   border: solid 2px var(--box-border);
   border-radius: 1rem;
   background: var(--box-bg-color);
-  margin: 0 1rem;
+  margin: 0;
 }
 
 footer {
@@ -686,8 +689,8 @@ footer {
 }
      */      
 .btn-logout {
-  color: var(--text-primary, #ffffff);
-  background: var(--color-primary, #f38e82);
+  color: #ffffff;
+  background: var(--btn-red-background);
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 0.5rem;
@@ -696,14 +699,18 @@ footer {
 }
 
 .btn-logout:hover {
-  background: var(--error-color, rgb(199, 15, 15));
+  background: var(--btn-hover-background);
   filter: brightness(0.8);
 }
-
+/*
+  --btn-text: #e8e8e8;
+  --btn-red-background: #f48982;
+  --btn-hover-background: #f87171;
+  */
 .btn-cancel {
   padding: 0.75rem 1.5rem;
-  background: var(--color-primary, #f38e82);
-  color: var(--text-primary, #333333);
+  background: var(--btn-red-background);
+  color: #ffffff;
   border: none;
   border-radius: 0.5rem;
   font-size: 1rem;
@@ -711,7 +718,7 @@ footer {
 }
 
 .btn-cancel:hover {
-  background: var(--color-grad-2, #f48982);
+  background: var(--btn-hover-background);
 }
  /*
 .btn-cancel {
