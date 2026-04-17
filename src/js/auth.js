@@ -62,6 +62,7 @@ export async function register(username, email, password) {
   if (data.token) {
     setToken(data.token);
     setUser(data.user);
+    sessionStorage.setItem('showGoldApiModal', 'true');
   }
   
   return data;

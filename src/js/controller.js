@@ -168,7 +168,10 @@ async function controlGetMetalPrice() {
     updateChartPrice(metalData.timestamp, metalData.price);
   } catch (err) {
     console.error('Error:', err, 'Status:', err.response?.status, 'Data:', err.response?.data);
-    [spotDataView, statisticDataView].forEach(fn => fn.renderError('Login required'));
+    const errorMsg = err.message?.includes('401') || err.message?.includes('Authentication') || err.message?.includes('Invalid or expired token') 
+      ? 'Login required' 
+      : err.message;
+    [spotDataView, statisticDataView].forEach(fn => fn.renderError(errorMsg));
   }
 }
 
@@ -216,7 +219,8 @@ async function loadProfile() {
       <p><strong>Member since:</strong> ${new Date(user.createdAt).toLocaleDateString('en-GB')}</p>
     `;
     
-    if (!user.hasGoldApiKey && !user.isAdmin) {
+    if (!user.hasGoldApiKey && !user.isAdmin && sessionStorage.getItem('showGoldApiModal') === 'true') {
+      sessionStorage.removeItem('showGoldApiModal');
       setTimeout(() => {
         settingsOverlay.classList.remove('hidden');
         settingsWindow.classList.remove('hidden');
@@ -339,13 +343,21 @@ function setupSettingsModal() {
       });
       
       if (response.ok) {
-        msgDiv.textContent = 'Settings saved successfully!';
+        msgDiv.innerHTML = `<button id="settingsSavedBtn" class="success-btn">
+          <span>Settings saved successfully!</span>
+          <span class="sub-text">Click here to continue</span>
+        </button>`;
         msgDiv.classList.remove('hidden');
         newUserMsg.classList.add('hidden');
         document.getElementById('goldapiKey').value = '';
         saveBtn.disabled = true;
+
+        document.getElementById('settingsSavedBtn').addEventListener('click', () => {
+          window.location.href = '/';
+        });
       } else {
-        msgDiv.textContent = 'Failed to save settings';
+        const data = await response.json();
+        msgDiv.textContent = data.error || 'Failed to save settings';
         msgDiv.classList.remove('hidden');
       }
     } catch (err) {

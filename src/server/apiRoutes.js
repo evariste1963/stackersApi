@@ -1,5 +1,5 @@
 import { authMiddleware, adminMiddleware } from './middleware.js';
-import { fetchMetalPrice, fetchAccountStats } from './goldapi.js';
+import { fetchMetalPrice, fetchAccountStats, validateApiKey } from './goldapi.js';
 import { getUserById, logApiUsage, getAllUsers, updateUserAdminStatus, getPricesByMetal, savePrice, getUserApiKey, deleteUser } from './database.js';
 
 export function apiRoutes(server) {
@@ -147,6 +147,13 @@ export function apiRoutes(server) {
       }
       
       if (goldapiKey) {
+        const isValidKey = await validateApiKey(goldapiKey);
+        if (!isValidKey) {
+          return new Response(JSON.stringify({ error: 'Invalid GoldAPI key. Please check and try again.' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json' }
+          });
+        }
         db.updateUserGoldApiKey(auth.user.userId, goldapiKey, goldapiSecret || null);
       }
       
