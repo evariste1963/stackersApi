@@ -79,4 +79,13 @@ export function savePrice(metal, date, price) {
   return stmt.run(metal, date, price);
 }
 
+export function getMonthlyApiUsageCount(userId) {
+  const result = db.prepare(`
+    SELECT COUNT(*) as count FROM api_usage 
+    WHERE user_id = ? 
+    AND strftime('%Y-%m', timestamp) = strftime('%Y-%m', 'now')
+  `).get(userId);
+  return result?.count || 0;
+}
+
 export default db;

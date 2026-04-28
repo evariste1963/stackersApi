@@ -1,6 +1,8 @@
 import { authMiddleware, adminMiddleware } from './middleware.js';
 import { fetchMetalPrice, fetchAccountStats, validateApiKey } from './goldapi.js';
-import { getUserById, logApiUsage, getAllUsers, updateUserAdminStatus, getPricesByMetal, savePrice, getUserApiKey, deleteUser } from './database.js';
+import { getUserById, logApiUsage, getAllUsers, updateUserAdminStatus, getPricesByMetal, savePrice, getUserApiKey, deleteUser, getMonthlyApiUsageCount } from './database.js';
+
+const MONTHLY_REQUEST_LIMIT = 100;
 
 export function apiRoutes(server) {
   server.get('/api/prices', async (request) => {
@@ -26,6 +28,14 @@ export function apiRoutes(server) {
     if (auth.error) {
       return new Response(JSON.stringify({ error: auth.error }), {
         status: auth.status,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+    
+    const currentUsage = getMonthlyApiUsageCount(auth.user.userId);
+    if (currentUsage >= MONTHLY_REQUEST_LIMIT) {
+      return new Response(JSON.stringify({ error: 'Monthly API limit reached (100 requests/month). Upgrade your GoldAPI plan for more requests.' }), {
+        status: 429,
         headers: { 'Content-Type': 'application/json' }
       });
     }
@@ -68,6 +78,14 @@ export function apiRoutes(server) {
     if (auth.error) {
       return new Response(JSON.stringify({ error: auth.error }), {
         status: auth.status,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+    
+    const currentUsage = getMonthlyApiUsageCount(auth.user.userId);
+    if (currentUsage >= MONTHLY_REQUEST_LIMIT) {
+      return new Response(JSON.stringify({ error: 'Monthly API limit reached (100 requests/month). Upgrade your GoldAPI plan for more requests.' }), {
+        status: 429,
         headers: { 'Content-Type': 'application/json' }
       });
     }
